@@ -21,7 +21,7 @@ package com.haynes.leetcode.array;
  * 在下标 5 处（从 0 开始计数）出现 3 vs 4 ，所以我们必须移动这名学生。
  * 示例 2：
  *
- * 输入：heights = [5,1,2,3,4]
+ * 输入：heights = [5,1,2,3,4]  15234 12534 12354 12345   41235 31245 21345 12345
  * 输出：5
  * 示例 3：
  *
@@ -40,5 +40,40 @@ package com.haynes.leetcode.array;
  * 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
  */
 public class HighChecker {
+
+    public int heightChecker(int[] heights) {
+        int[] heightsClone = heights.clone();
+        //排序
+        int max = heights[0];
+        for (int i = 0; i < heights.length; i++) {
+            if (i + 1 >= heights.length) {
+                continue;
+            }
+            if (heights[i] > max) {
+                
+                int temp = heights[i];
+                heights[i] = heights[i + 1];
+                heights[i + 1] = temp;
+            }
+        }
+        int count = 0;
+
+        for (int i = 0; i < heights.length; i++) {
+            if (heights[i] != heightsClone[i]) {
+                count++;
+            }
+        }
+
+        return count;
+    }
+
+    public static void main(String[] args) {
+        HighChecker checker = new HighChecker();
+        int[] array = {1, 1, 4, 2, 1, 3};
+        int i = checker.heightChecker(array);
+        System.out.println(i);
+
+    }
+
 
 }
