@@ -42,24 +42,42 @@ package com.haynes.leetcode.array;
 public class HighChecker {
 
     public int heightChecker(int[] heights) {
-        int[] heightsClone = heights.clone();
-        //排序
-        int max = heights[0];
-        for (int i = 0; i < heights.length; i++) {
-            if (i + 1 >= heights.length) {
-                continue;
-            }
-            if (heights[i] > max) {
-                
-                int temp = heights[i];
-                heights[i] = heights[i + 1];
-                heights[i + 1] = temp;
-            }
-        }
         int count = 0;
+        int[] array = new int[101];
 
         for (int i = 0; i < heights.length; i++) {
-            if (heights[i] != heightsClone[i]) {
+            array[heights[i]]++;
+        }
+        for (int i = 1, j = 0; i < array.length; i++) {
+            // arr[i]，i就是桶中存放的元素的值，arr[i]是元素的个数
+            // arr[i]-- 就是每次取出一个，一直取到没有元素，成为空桶
+            while (array[i]-- > 0) {
+                // 从桶中取出元素时，元素的排列顺序就是非递减的，然后与heights中的元素比较，如果不同，计算器就加1
+                if (heights[j++] != i) count++;
+            }
+        }
+        return count;
+    }
+
+    public int heightChecker2(int[] heights) {
+        int count = 0;
+        int[] clone = heights.clone();
+        for (int i = 0, j = i; i < clone.length; j = ++i) {
+            if ((i + 1) >= clone.length) {
+                break;
+            }
+            int ai = clone[i + 1];
+            while (ai < clone[j]) {
+                clone[j + 1] = clone[j];
+                if (j-- == 0) {
+                    break;
+                }
+            }
+            clone[j + 1] = ai;
+        }
+
+        for (int i = 0; i < clone.length; i++) {
+            if (clone[i] != heights[i]) {
                 count++;
             }
         }
@@ -69,7 +87,7 @@ public class HighChecker {
 
     public static void main(String[] args) {
         HighChecker checker = new HighChecker();
-        int[] array = {1, 1, 4, 2, 1, 3};
+        int[] array = {1, 3, 8, 1, 2};
         int i = checker.heightChecker(array);
         System.out.println(i);
 
