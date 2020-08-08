@@ -23,17 +23,42 @@ package com.haynes.leetcode.array;
  */
 public class FindLengthOfLCIS {
     public int findLengthOfLCIS(int[] nums) {
-        int count = 0;
-        for (int i = 0; i < nums.length; i++) {
-            if ((i + 1) == nums.length) {
-                break;
-            }
-            if (nums[i] > nums[i + 1]) {
-                break;
-            }
-            count = i;
+        int max = 0;
+        int count = 1;
+        if (nums.length == 0) {
+            return 0;
         }
-        return count+1;
+        if (nums.length == 1) {
+            return 1;
+        }
+        for (int i = 1; i < nums.length; i++) {
+            if (nums[i-1] < nums[i]) {
+                count++;
+            }else {
+                max = Math.max(max, count);
+                count = 1;
+            }
+        }
+
+        if (count == nums.length) {
+            max = count;
+        }else {
+            max = Math.max(max, count);
+        }
+        return max;
+    }
+
+    public int findLengthOfLCIS2(int[] nums) {
+        int ans = 0, anchor = 0;
+        for (int i = 0; i < nums.length; i++) {
+            if (i > 0 && nums[i - 1] >= nums[i]) {
+                anchor = i;
+            }
+            ans = Math.max(ans, i - anchor + 1);
+        }
+
+
+        return ans;
     }
 
     public static void main(String[] args) {
