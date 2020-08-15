@@ -33,7 +33,6 @@ public class Stack<Item> implements Iterable<Item> {
     }
 
     public boolean isEmpty() {
-        System.out.println(this == Stack.this);
         return N == 0;
     }
 
