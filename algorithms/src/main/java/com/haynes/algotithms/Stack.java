@@ -2,6 +2,7 @@ package com.haynes.algotithms;
 
 import java.util.Iterator;
 import java.util.ListIterator;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 /**
@@ -26,6 +27,9 @@ public class Stack<Item> implements Iterable<Item> {
     }
 
     public Item pop() {
+        if (isEmpty()) {
+            throw new NoSuchElementException("Stack underfolw");
+        }
         Item item = first.item;
         first = first.next;
         N--;
@@ -41,22 +45,48 @@ public class Stack<Item> implements Iterable<Item> {
         return N;
     }
 
+    public Item peek() {
+        if (isEmpty()) {
+            throw new NoSuchElementException("Stack underflow");
+        }
+        return this.first.item;
+    }
+
+    public static <Item> Stack<Item> copy(Stack<Item> stack) {
+        Iterator<Item> iterator = stack.iterator();
+        Stack<Item> temp = new Stack<>();
+        Stack<Item> result = new Stack<>();
+
+        while (iterator.hasNext()) {
+            temp.push(iterator.next());
+        }
+        iterator = temp.iterator();
+        while (iterator.hasNext()) {
+            result.push(iterator.next());
+        }
+        return result;
+    }
+
+    @Override
     public Iterator<Item> iterator() {
         return new ListIterator();
     }
 
     public class ListIterator implements Iterator<Item> {
         private Node current = first;
+        @Override
         public boolean hasNext() {
             return current != null;
         }
 
+        @Override
         public Item next() {
             Item item = current.item;
             current = current.next;
             return item;
         }
 
+        @Override
         public void remove() {
             Stack.this.pop();
         }
