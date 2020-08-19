@@ -14,6 +14,10 @@ public class Queue<Item> {
         return N == 0 || first == null;
     }
 
+    public int size() {
+        return N;
+    }
+
     public void enqueue(Item item) {
         Node oldLast = last;
         last = new Node();
