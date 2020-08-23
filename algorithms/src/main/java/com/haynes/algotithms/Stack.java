@@ -1,5 +1,7 @@
 package com.haynes.algotithms;
 
+import edu.princeton.cs.algs4.LinkedStack;
+
 import java.util.Iterator;
 import java.util.ListIterator;
 import java.util.NoSuchElementException;
