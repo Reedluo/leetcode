@@ -54,6 +54,38 @@ public class Stack<Item> implements Iterable<Item> {
         return this.first.item;
     }
 
+    public Item deleteLast() {
+        Node current = first;
+        Item item = null;
+        if (isEmpty()) {
+            return null;
+        }
+        while (current.next != null) {
+            if (current.next.next == null) {
+                item = current.next.item;
+                current.next = null;
+                this.N--;
+                break;
+            }
+            current = current.next;
+
+        }
+        return item;
+    }
+
+    public Item deleteByk(int k) {
+        if (k > N) {
+            return null;
+        }
+        Node current = first;
+        int index = 0;
+        while (first.next != null && index != k) {
+            current = first.next;
+            index++;
+        }
+        return current.item;
+    }
+
     public static <Item> Stack<Item> copy(Stack<Item> stack) {
         Iterator<Item> iterator = stack.iterator();
         Stack<Item> temp = new Stack<>();
