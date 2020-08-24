@@ -25,7 +25,9 @@ public class ResizingArrayQueueOfStrings {
             resize(coefficient * a.length);
         }
         a[n++] = item;
+
     }
+
 
     public String dequeque() {
         String item = a[0];

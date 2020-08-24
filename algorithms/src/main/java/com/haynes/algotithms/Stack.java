@@ -1,5 +1,7 @@
 package com.haynes.algotithms;
 
+import edu.princeton.cs.algs4.LinkedStack;
+
 import java.util.Iterator;
 import java.util.ListIterator;
 import java.util.NoSuchElementException;
@@ -72,17 +74,56 @@ public class Stack<Item> implements Iterable<Item> {
     }
 
     public Item deleteByk(int k) {
-        if (k > N) {
+        if (k > N || k <= 0) {
             return null;
         }
         Node current = first;
+        Node pre = null;
         int index = 0;
-        while (first.next != null && index != k) {
-            current = first.next;
+        while (current.next != null && index < k - 1) {
+            pre = current;
+            current = current.next;
             index++;
+        }
+        if (pre == null) {
+            first = current.next;
+            N--;
+        } else if (current.next != null) {
+            pre.next = current.next;
+            N--;
+        }else {
+            pre.next = null;
+            N--;
         }
         return current.item;
     }
+    //
+
+    public Item deleteByk2(int k) {
+        Item item = null;
+        if (k > N || k <= 0 || first == null) {
+            return null;
+        }
+        if (k == 1) {
+            item = first.item;
+            first = first.next;
+            N--;
+            return item;
+        }
+
+        Node current = first;
+        k--;
+        while (current.next != null && --k !=0) {
+            current = current.next;
+        }
+        if (current.next != null) {
+            item = current.next.item;
+            current.next =current.next.next;
+            N--;
+            return item;
+        }
+        return null;
+  }
 
     public static <Item> Stack<Item> copy(Stack<Item> stack) {
         Iterator<Item> iterator = stack.iterator();

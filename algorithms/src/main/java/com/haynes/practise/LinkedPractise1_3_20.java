@@ -9,6 +9,17 @@ import com.haynes.algotithms.Stack;
  **/
 public class LinkedPractise1_3_20 {
     public static void main(String[] args) {
-        Stack<String> stack = new Stack<>();
+        Stack<Integer> stack = new Stack<>();
+        for (int i = 0; i < 10; i++) {
+            stack.push(i);
+        }
+        System.out.println(stack.deleteByk2(1));
+
+        for (Integer integer : stack) {
+            System.out.print(integer + " ");
+        }
+        System.out.println();
+
+        System.out.println(stack.size());
     }
 }
