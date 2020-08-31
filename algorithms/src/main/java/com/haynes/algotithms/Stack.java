@@ -125,6 +125,40 @@ public class Stack<Item> implements Iterable<Item> {
         return null;
   }
 
+    public Node getFirst() {
+        return first;
+    }
+
+    public int max(Node first) {
+        if (first == null) {
+            return 0;
+        }
+        int max = (Integer) first.item;
+        Node current = first;
+        while (current.next != null) {
+            current = current.next;
+            if ((Integer)current.item > max) {
+                max = (Integer) current.item;
+            }
+        }
+        return max;
+    }
+
+    public int maxOfRecursion(Node first) {
+        if (first == null) {
+            return 0;
+        }
+        if (first.next == null) {
+            return (Integer) first.item;
+        }
+        int max = (Integer) first.item;
+        if (max > (Integer) first.next.item) {
+            first.next = first.next.next;
+            return maxOfRecursion(first);
+        }
+        return maxOfRecursion(first.next);
+    }
+
     public static <Item> Stack<Item> copy(Stack<Item> stack) {
         Iterator<Item> iterator = stack.iterator();
         Stack<Item> temp = new Stack<>();

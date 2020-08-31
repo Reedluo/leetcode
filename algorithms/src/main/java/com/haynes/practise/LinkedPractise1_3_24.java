@@ -1,6 +1,8 @@
 package com.haynes.practise;
 
-import edu.princeton.cs.algs4.LinkedStack;
+
+import com.haynes.algotithms.LinkedStack;
+import com.haynes.algotithms.Stack;
 
 /**
  * @Description: 1.3.24 編寫一個 removeAfter(),

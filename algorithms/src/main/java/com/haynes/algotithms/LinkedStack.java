@@ -46,7 +46,7 @@ public class LinkedStack<Item> implements Iterable<Item> {
     private Node first;     // top of stack
 
     // helper linked list class
-    private class Node {
+    public class Node {
         private Item item;
         private Node next;
     }
@@ -123,6 +123,36 @@ public class LinkedStack<Item> implements Iterable<Item> {
         for (Item item : this)
             s.append(item + " ");
         return s.toString();
+    }
+
+    /**
+     * 1.3.24 編寫一個 removeAfter(),
+     * 接受一个链表节点作为参数并删除该节点的后续节点（如果参数节点或参数节点的后续节点为空则什么也不做)。
+     * @param node 节点
+     */
+    public void removeAfter(Node node) {
+        if (node == null || node.next == null) {
+            return;
+        }
+        Node current = first;
+        if (current.item.equals(node)) {
+            current.next = null;
+            N = 1;
+            return;
+        }
+        int n = 1;
+        while (current.next != null) {
+            current = current.next;
+            if (current.item.equals(node)) {
+                current.next = null;
+                return;
+            }
+            n++;
+        }
+    }
+
+    public Node getFirst() {
+        return first;
     }
        
     /**
